@@ -1,3 +1,4 @@
+// filepath: [Home.js](http://_vscodecontentref_/1)
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Typography, Box, Container, Avatar, Stack, Link, Chip } from '@mui/material';
@@ -29,7 +30,7 @@ const Home = () => {
                 boxShadow: '0 8px 30px rgba(0,0,0,0.12)'
               }}
               alt="Sudharshan Venkatraman"
-              src="/path-to-your-photo.jpg"
+              src="https://raw.githubusercontent.com/sudharshan24k/resume/main/profilepic.png"
             />
           </motion.div>
           <Typography variant="h2" component="h1" 
