@@ -35,11 +35,6 @@ const Experience = () => {
       description: 'Engineered an AI-driven mental health support mechanism utilizing state-of-the-art transformer models for personal psychological needs.',
       icon: <AccountTreeIcon />
     },
-    {
-      title: 'Full-Stack Alumni Portal',
-      description: 'Single-handedly overseeing the real-time development and ongoing maintenance of a full-stack alumni portal and school website.',
-      icon: <AccountTreeIcon />
-    }
   ];
 
   const conferences = [
