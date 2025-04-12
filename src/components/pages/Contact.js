@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Typography, Box, Container, Paper, IconButton, Grid } from '@mui/material';
+import { Typography, Box, Container, Paper, IconButton, Grid, TextField, Button } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import emailjs from 'emailjs-com';
+
 
 const Contact = () => {
-  const contactInfo = {
-    email: 'your.email@example.com',
-    linkedin: 'https://linkedin.com/in/yourprofile',
-    github: 'https://github.com/yourusername',
-    twitter: 'https://twitter.com/yourhandle'
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    emailjs.send(
+      'service_24k_gmail', // Your EmailJS service ID
+      'template_553aqm9', // Your EmailJS template ID
+      formData,
+      'ZnCKkRbmhrh3KQDIz' // Your EmailJS User ID
+    )
+    .then((response) => {
+      console.log('Email sent successfully:', response);
+      alert('Message sent successfully!');
+      setFormData({ name: '', email: '', message: '' });
+    })
+    .catch((error) => {
+      console.error('Error sending email:', error);
+      alert('Failed to send message. Please try again later.');
+    });
   };
 
   return (
@@ -90,43 +110,50 @@ const Contact = () => {
                       <LinkedInIcon fontSize="large" />
                     </IconButton>
                   </motion.div>
-                  
-                  <motion.div whileHover={{ y: -5 }}>
-                    <IconButton 
-                      href={contactInfo.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{ 
-                        color: '#1a237e',
-                        background: 'rgba(26, 35, 126, 0.1)',
-                        p: 2,
-                        '&:hover': { background: 'rgba(26, 35, 126, 0.2)' }
-                      }}
-                    >
-                      <GitHubIcon fontSize="large" />
-                    </IconButton>
-                  </motion.div>
-                  
-                  <motion.div whileHover={{ y: -5 }}>
-                    <IconButton 
-                      href={contactInfo.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{ 
-                        color: '#1a237e',
-                        background: 'rgba(26, 35, 126, 0.1)',
-                        p: 2,
-                        '&:hover': { background: 'rgba(26, 35, 126, 0.2)' }
-                      }}
-                    >
-                      <TwitterIcon fontSize="large" />
-                    </IconButton>
-                  </motion.div>
                 </Box>
 
-                <Typography variant="body1" sx={{ color: '#616161' }}>
+                <Typography variant="body1" sx={{ color: '#616161', mb: 4 }}>
                   Email: {contactInfo.email}
                 </Typography>
+
+                {/* Message Form */}
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
+                  <TextField
+                    fullWidth
+                    label="Your Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    sx={{ mb: 3 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Your Email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    sx={{ mb: 3 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Your Message"
+                    name="message"
+                    multiline
+                    rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
+                    sx={{ mb: 3 }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={{ mt: 2 }}
+                  >
+                    Send Message
+                  </Button>
+                </Box>
               </motion.div>
             </Paper>
           </Grid>
