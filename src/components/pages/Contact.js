@@ -5,15 +5,18 @@ import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import emailjs from 'emailjs-com';
 
-
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  // Define contact information
+  const contactInfo = {
+    linkedin: 'https://linkedin.com/in/yourprofile' // Replace with your LinkedIn profile URL
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
